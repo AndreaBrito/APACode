@@ -1,0 +1,33 @@
+#include <iostream>
+#include <stdio.h>
+using namespace std;
+
+void InsertionSort (int v[], int n){ // função entra com um array e o numero de caracteres desse arraay
+   int  i, j, aux;
+
+    for (i=1 ; i<= n-1 ; i++){ // loop que joga os valores presentes no arry em um variavel aux e em j
+
+    	aux = v[i];
+    	 j = i-1;
+    }
+
+     while ( j>=0 && aux < v[j]){ //loop que compara os valores de j e aux e ordena no array 
+     	v[j+1] = v[j];
+     	j = j--;
+     }
+
+     v[j+1] = aux;
+ }
+int main()
+{
+    int n;
+	FILE* f = fopen("teste","r");
+	fscanf(f,"%d", &n);
+	int arr[n];
+	for(int i = 0; i < n; i++){
+		fscanf(f,"%d", &arr[i]);
+	}
+	InsertionSort(arr,n);
+	for(int i = 0; i < n; i++){
+		printf("%d\n",arr[i] );
+	}
