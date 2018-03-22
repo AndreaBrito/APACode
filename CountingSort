@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <string.h>
+#define RANGE 255
+ 
+// Essa função ordena a string, em ordem alfabetica
+void countSort(char arr[])
+{
+    // Matriz de saida que recebera o conteudo ordenado em arr
+    char output[strlen(arr)];
+ 
+    // Cria uma matriz de contagem para armazenar a contagem inidividual
+    // caracteres e inicializar a matriz de contagem como 0
+    int count[RANGE + 1], i;
+    memset(count, 0, sizeof(count));
+ 
+    // Armazena contagem de cada caractere
+    for(i = 0; arr[i]; ++i)
+        ++count[arr[i]];
+ 
+    
+    // Alterar count [i] para que a count [i] agora contenha dados reais
+    // posição deste caractere no array de saída
+    for (i = 1; i <= RANGE; ++i)
+        count[i] += count[i-1];
+ 
+    // Constrói o array de caracteres de saída
+    for (i = 0; arr[i]; ++i)
+    {
+        output[count[arr[i]]-1] = arr[i];
+        --count[arr[i]];
+    }
+ 
+    // Copia o array de saída para arr, de modo que arr agora
+    // contém caracteres classificados
+    for (i = 0; arr[i]; ++i)
+        arr[i] = output[i];
+}
+ 
+// Driver program to test above function
+int main()
+{
+    char arr[];
+
+
+    char ler = fopen("Arquivo_a_ser_ordenado", "r");
+    for(int i = 0; i<=max ;i++){
+        fscanf(ler, "%d/n", &arr[i]);
+    }
+    fclose(ler);
+
+ 
+    countSort(arr);
+ 
+    printf("Sorted character array is %sn", arr);
+    return 0;
+}
