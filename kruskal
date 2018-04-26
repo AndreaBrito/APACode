@@ -1,0 +1,76 @@
+#include<iostream>
+using namespace std;
+ 
+// Uma função de utilidade para obter o valor máximo em arr []
+int getMax(int arr[], int n)
+{
+    int mx = arr[0];
+    for (int i = 1; i < n; i++)
+        if (arr[i] > mx)
+            mx = arr[i];
+    return mx;
+}
+ 
+
+// Uma função para fazer uma contagem de arr [] de acordo com
+// o dígito representado por exp.
+void countSort(int arr[], int n, int exp)
+{
+    int output[n]; // output array
+    int i, count[10] = {0};
+ 
+    // Armazena contagem de ocorrências em count []
+    for (i = 0; i < n; i++)
+        count[ (arr[i]/exp)%10 ]++;
+ 
+    
+// Alterar CoUnt [i] para que o CoUnt [i] agora contenha reais
+    // posição deste dígito em OutPut []
+    for (i = 1; i < 10; i++)
+        count[i] += count[i - 1];
+ 
+    
+// Construa o array de saída
+    for (i = n - 1; i >= 0; i--)
+    {
+        output[count[ (arr[i]/exp)%10 ] - 1] = arr[i];
+        count[ (arr[i]/exp)%10 ]--;
+    }
+ 
+    
+// Copie o array de saída para arr [], de modo que arr [] agora
+    // contém números classificados de acordo com o dígito atual
+    for (i = 0; i < n; i++)
+        arr[i] = output[i];
+}
+ 
+// A função principal para esse tipo arr [] do tamanho n usando
+// Radix Sort
+void radixsort(int arr[], int n)
+{
+    // Encontre o número máximo para saber o número de dígitos
+    int m = getMax(arr, n);
+ 
+    // Faça a classificação para cada dígito. Note que
+    // de passar o número do dígito, exp é passado. exp é 10 ^ i
+    // onde eu é o número do dígito atual
+    for (int exp = 1; m/exp > 0; exp *= 10)
+        countSort(arr, n, exp);
+}
+ 
+// Uma função de utilidade para imprimir uma matriz
+void print(int arr[], int n)
+{
+    for (int i = 0; i < n; i++)
+        cout << arr[i] << " ";
+}
+ 
+// Programa do driver para testar as funções acima
+int main()
+{
+    int arr[] = {170, 45, 75, 90, 802, 24, 2, 66};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    radixsort(arr, n);
+    print(arr, n);
+    return 0;
+}
